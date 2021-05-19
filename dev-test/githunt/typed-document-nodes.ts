@@ -268,9 +268,23 @@ export type VoteMutation = { __typename?: 'Mutation' } & {
   >;
 };
 
+const deDupeDefinitions = definitions => {
+  const definitionsVault = {};
+  return definitions.filter(definition => {
+    if (definition.kind !== 'FragmentDefinition') return true;
+    var name = definition.name.value;
+    if (definitionsVault[name]) {
+      return false;
+    } else {
+      definitionsVault[name] = true;
+      return true;
+    }
+  });
+};
+
 export const CommentsPageCommentFragmentDoc: DocumentNode<CommentsPageCommentFragment, unknown> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'CommentsPageComment' },
@@ -295,11 +309,11 @@ export const CommentsPageCommentFragmentDoc: DocumentNode<CommentsPageCommentFra
         ],
       },
     },
-  ],
+  ]),
 };
 export const VoteButtonsFragmentDoc: DocumentNode<VoteButtonsFragment, unknown> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'VoteButtons' },
@@ -319,11 +333,11 @@ export const VoteButtonsFragmentDoc: DocumentNode<VoteButtonsFragment, unknown> 
         ],
       },
     },
-  ],
+  ]),
 };
 export const RepoInfoFragmentDoc: DocumentNode<RepoInfoFragment, unknown> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'RepoInfo' },
@@ -358,11 +372,11 @@ export const RepoInfoFragmentDoc: DocumentNode<RepoInfoFragment, unknown> = {
         ],
       },
     },
-  ],
+  ]),
 };
 export const FeedEntryFragmentDoc: DocumentNode<FeedEntryFragment, unknown> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'FeedEntry' },
@@ -398,11 +412,11 @@ export const FeedEntryFragmentDoc: DocumentNode<FeedEntryFragment, unknown> = {
     },
     ...VoteButtonsFragmentDoc.definitions,
     ...RepoInfoFragmentDoc.definitions,
-  ],
+  ]),
 };
 export const OnCommentAddedDocument: DocumentNode<OnCommentAddedSubscription, OnCommentAddedSubscriptionVariables> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'OperationDefinition',
       operation: 'subscription',
@@ -450,11 +464,11 @@ export const OnCommentAddedDocument: DocumentNode<OnCommentAddedSubscription, On
         ],
       },
     },
-  ],
+  ]),
 };
 export const CommentDocument: DocumentNode<CommentQuery, CommentQueryVariables> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'OperationDefinition',
       operation: 'query',
@@ -567,14 +581,14 @@ export const CommentDocument: DocumentNode<CommentQuery, CommentQueryVariables> 
       },
     },
     ...CommentsPageCommentFragmentDoc.definitions,
-  ],
+  ]),
 };
 export const CurrentUserForProfileDocument: DocumentNode<
   CurrentUserForProfileQuery,
   CurrentUserForProfileQueryVariables
 > = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'OperationDefinition',
       operation: 'query',
@@ -596,11 +610,11 @@ export const CurrentUserForProfileDocument: DocumentNode<
         ],
       },
     },
-  ],
+  ]),
 };
 export const FeedDocument: DocumentNode<FeedQuery, FeedQueryVariables> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'OperationDefinition',
       operation: 'query',
@@ -662,11 +676,11 @@ export const FeedDocument: DocumentNode<FeedQuery, FeedQueryVariables> = {
       },
     },
     ...FeedEntryFragmentDoc.definitions,
-  ],
+  ]),
 };
 export const SubmitRepositoryDocument: DocumentNode<SubmitRepositoryMutation, SubmitRepositoryMutationVariables> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'OperationDefinition',
       operation: 'mutation',
@@ -699,11 +713,11 @@ export const SubmitRepositoryDocument: DocumentNode<SubmitRepositoryMutation, Su
         ],
       },
     },
-  ],
+  ]),
 };
 export const SubmitCommentDocument: DocumentNode<SubmitCommentMutation, SubmitCommentMutationVariables> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'OperationDefinition',
       operation: 'mutation',
@@ -747,11 +761,11 @@ export const SubmitCommentDocument: DocumentNode<SubmitCommentMutation, SubmitCo
       },
     },
     ...CommentsPageCommentFragmentDoc.definitions,
-  ],
+  ]),
 };
 export const VoteDocument: DocumentNode<VoteMutation, VoteMutationVariables> = {
   kind: 'Document',
-  definitions: [
+  definitions: deDupeDefinitions([
     {
       kind: 'OperationDefinition',
       operation: 'mutation',
@@ -805,5 +819,5 @@ export const VoteDocument: DocumentNode<VoteMutation, VoteMutationVariables> = {
         ],
       },
     },
-  ],
+  ]),
 };
